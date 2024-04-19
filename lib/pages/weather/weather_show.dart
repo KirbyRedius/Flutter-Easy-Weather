@@ -1,14 +1,10 @@
-import 'dart:math';
-
 import 'package:easyweather/api/hello-weather/client.dart';
 import 'package:easyweather/pages/weather/soon_weather_info.dart';
 import 'package:easyweather/pages/weather/weather_by_days.dart';
 import 'package:easyweather/pages/weather/weather_short_info.dart';
-import 'package:easyweather/utils/weather_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
-import 'package:intl/intl.dart';
 import 'package:easyweather/globals.dart' as globals;
 
 class WeatherShow extends StatefulWidget {

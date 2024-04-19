@@ -51,10 +51,10 @@ class _LocationPageState extends State<SettingsPage> {
               value: globals.showFahrenheit,
               onChanged: (value) async {
                 var storage = const FlutterSecureStorage();
-                if (value) {
-                  await storage.write(key: "showFahrenheit", value: "1");
-                } else {
+                if (!value) {
                   await storage.write(key: "showFahrenheit", value: null);
+                } else {
+                  await storage.write(key: "showFahrenheit", value: "1");
                 }
                 setState(() {
                   globals.showFahrenheit = value;
@@ -87,10 +87,11 @@ class _LocationPageState extends State<SettingsPage> {
                   turn = 1;
                 }
                 var storage = const FlutterSecureStorage();
-                if (value) {
+                if (!value) {
                   await storage.write(key: "turnDarkTheme", value: "1");
                 } else {
-                  await storage.write(key: "showFahrenheit", value: null);
+                  print("го светлую!");
+                  await storage.write(key: "turnDarkTheme", value: null);
                 }
                 widget.reloadState();
                 setState(() {

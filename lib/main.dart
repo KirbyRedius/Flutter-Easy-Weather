@@ -7,41 +7,51 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:easyweather/globals.dart' as globals;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  var storage = const FlutterSecureStorage();
-  var turnDarkTheme = await storage.read(key: "turnDarkTheme");
-  var showFahrenheit = await storage.read(key: "showFahrenheit");
-
-  if (turnDarkTheme != null) {
-    globals.turnDarkTheme = 0;
-  }
-
-  if (showFahrenheit != null) {
-    globals.showFahrenheit = true;
-  }
-
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  Future<void> configStorage() async {
+    var storage = const FlutterSecureStorage();
+    var turnDarkTheme = await storage.read(key: "turnDarkTheme");
+    var showFahrenheit = await storage.read(key: "showFahrenheit");
+    if (turnDarkTheme != null) {
+      globals.turnDarkTheme = 0;
+    }
+
+    if (showFahrenheit != null) {
+      globals.showFahrenheit = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return FlutterSizer(
       builder: (context, orientation, screenType) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.black,
-              background:
-                  globals.appColors[globals.turnDarkTheme].backgroundColor,
-            ),
-            useMaterial3: true,
-          ),
-          home: const MyHomePage(),
-          debugShowCheckedModeBanner: false,
+        return FutureBuilder(
+          future: configStorage(),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: Colors.black,
+                  background:
+                      globals.appColors[globals.turnDarkTheme].backgroundColor,
+                ),
+                useMaterial3: true,
+              ),
+              home: const MyHomePage(),
+              debugShowCheckedModeBanner: false,
+            );
+          },
         );
       },
     );
