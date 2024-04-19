@@ -27,7 +27,6 @@ class HelloWeatherClient {
     );
 
     return json.decode(utf8.decode(response.bodyBytes));
-    // return jsonDecode(response.body);
   }
 
   Future<dynamic> getRealTimeWeather(String city) async {

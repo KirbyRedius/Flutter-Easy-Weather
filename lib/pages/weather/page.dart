@@ -5,7 +5,6 @@ import 'package:easyweather/pages/weather/bottom_panel.dart';
 import 'package:easyweather/pages/weather/weather_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:geolocator/geolocator.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -15,9 +14,9 @@ class WeatherPage extends StatefulWidget {
   State<WeatherPage> createState() => _WeatherPageState();
 }
 
-/// проверить сохранённый город
-/// попробовать определить город по ip + запросить геолокацию
-/// если дали геолокацию то сохраним город по геолокации
+// проверить сохранённый город
+// попробовать определить город по ip + запросить геолокацию
+// если дали геолокацию то сохраним город по геолокации
 
 class _WeatherPageState extends State<WeatherPage> {
   var storage = FlutterSecureStorage();
@@ -26,7 +25,6 @@ class _WeatherPageState extends State<WeatherPage> {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return null;
@@ -44,14 +42,12 @@ class _WeatherPageState extends State<WeatherPage> {
       return null;
     }
 
-    // Permissions are granted, so we can continue accessing the position.
     return await Geolocator.getCurrentPosition();
   }
 
   Future<String> getSavedCityOrUpdate() async {
     var position = await storage.read(key: "position");
     var savedCity = await storage.read(key: "city");
-    var savedCityType = await storage.read(key: "cityType");
 
     // если уже есть сохранённый город - вернём его
     // если нет, то:

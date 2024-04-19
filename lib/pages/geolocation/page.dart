@@ -51,11 +51,6 @@ class _CitySearchPageState extends State<CitySearchPage> {
             ),
           ),
         ),
-        // const Divider(
-        //   height: 1,
-        //   indent: 10,
-        //   endIndent: 10,
-        // ),
         Padding(
           padding: const EdgeInsets.all(10),
           child: TextField(

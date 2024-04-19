@@ -137,13 +137,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-class PageControllerProvider with ChangeNotifier {
-  final PageController controller = PageController();
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-}

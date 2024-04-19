@@ -40,11 +40,6 @@ class _PagesWithDotsState extends State<PagesWithDots> {
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeIn,
         );
-
-        // print(_newSelectedPage);
-        // setState(() {
-        //   _selectedPage = _newSelectedPage;
-        // });
       },
       child: Column(
         children: <Widget>[

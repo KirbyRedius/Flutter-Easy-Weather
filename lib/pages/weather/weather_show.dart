@@ -23,8 +23,6 @@ class _WeatherShowState extends State<WeatherShow> {
       HelloWeatherClient weatherClient = HelloWeatherClient();
       WeatherForecast _weather =
           await weatherClient.getForecast(widget.city, 7);
-
-      // var test = weatherClient.getForecast(widget.city, 1);
       setState(() {
         weather = _weather;
       });

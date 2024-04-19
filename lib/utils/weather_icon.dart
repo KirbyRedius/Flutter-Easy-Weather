@@ -22,7 +22,7 @@ class _WeatherIconState extends State<WeatherIcon> {
     if (widget.isDay == null) {
       boxColor = Colors.transparent;
     } else if (widget.isDay! > 0) {
-      boxColor = Color.fromARGB(255, 240, 240, 240);
+      boxColor = const Color.fromARGB(255, 240, 240, 240);
     }
 
     return Container(

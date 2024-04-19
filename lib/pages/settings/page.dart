@@ -90,7 +90,6 @@ class _LocationPageState extends State<SettingsPage> {
                 if (!value) {
                   await storage.write(key: "turnDarkTheme", value: "1");
                 } else {
-                  print("го светлую!");
                   await storage.write(key: "turnDarkTheme", value: null);
                 }
                 widget.reloadState();
