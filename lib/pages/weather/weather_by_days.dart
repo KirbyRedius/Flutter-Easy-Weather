@@ -177,6 +177,7 @@ class _WeatherByDaysState extends State<WeatherByDays> {
       minChance = minChanceSnow;
     }
 
+    print(widget.weather.forecast.forecastDay);
     for (ForecastDay forecastDay in widget.weather.forecast.forecastDay) {
       DateTime dateTime = DateFormat("yyyy-MM-dd").parse(forecastDay.date);
       String dayOfWeek =

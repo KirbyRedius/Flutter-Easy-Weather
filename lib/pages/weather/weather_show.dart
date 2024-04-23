@@ -23,6 +23,8 @@ class _WeatherShowState extends State<WeatherShow> {
       HelloWeatherClient weatherClient = HelloWeatherClient();
       WeatherForecast _weather =
           await weatherClient.getForecast(widget.city, 7);
+      print(_weather.forecast.forecastDay);
+      print('lolккк');
       setState(() {
         weather = _weather;
       });

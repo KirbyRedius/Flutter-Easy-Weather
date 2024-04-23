@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class ApiOptions {
@@ -9,7 +8,7 @@ class ApiOptions {
     "User-Agent": "Hello Weather Client",
     "Content-type": "application/json; charset=utf-8"
   };
-  String apiKey = "c0febbc6c579430898e221909240604";
+  String apiKey = "cca8f0cfbc084206b0a94750242304";
 }
 
 class HelloWeatherClient {
@@ -19,8 +18,9 @@ class HelloWeatherClient {
     params.addAll({"key": options.apiKey});
 
     String fullPath = options.apiDefaultPath + path;
-    final url = Uri.https(options.baseUrl, fullPath, params);
 
+    final url = Uri.https(options.baseUrl, fullPath, params);
+    print(url);
     var response = await http.get(
       url,
       headers: options.headers,
@@ -32,13 +32,18 @@ class HelloWeatherClient {
   Future<dynamic> getRealTimeWeather(String city) async {
     Map<String, dynamic> params = {"q": city};
     var data = await request("current.json", params);
-
     return Weather.fromJson(data);
   }
 
   Future<dynamic> getForecast(String city, int days) async {
     Map<String, dynamic> params = {"q": city, "days": days.toString()};
+
     var data = await request("forecast.json", params);
+    List test = [];
+    for (var t in data["forecast"]["forecastday"]) {
+      test.add(t);
+    }
+    print("testtttt ${test.length}");
     return WeatherForecast.fromJson(data);
   }
 
@@ -123,6 +128,8 @@ class Forecast {
   factory Forecast.fromJson(Map<String, dynamic> json) {
     List<ForecastDay> forecastDayNew = [];
     for (var day in json['forecastday']) {
+      print("testt");
+      print(day);
       forecastDayNew.add(ForecastDay.fromJson(day));
     }
     return Forecast(forecastDay: forecastDayNew);
