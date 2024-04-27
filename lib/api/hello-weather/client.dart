@@ -20,7 +20,6 @@ class HelloWeatherClient {
     String fullPath = options.apiDefaultPath + path;
 
     final url = Uri.https(options.baseUrl, fullPath, params);
-    print(url);
     var response = await http.get(
       url,
       headers: options.headers,
@@ -37,7 +36,6 @@ class HelloWeatherClient {
     for (var t in data["forecast"]["forecastday"]) {
       test.add(t);
     }
-    print("testtttt ${test.length}");
     return WeatherForecast.fromJson(data);
   }
 
@@ -122,8 +120,6 @@ class Forecast {
   factory Forecast.fromJson(Map<String, dynamic> json) {
     List<ForecastDay> forecastDayNew = [];
     for (var day in json['forecastday']) {
-      print("testt");
-      print(day);
       forecastDayNew.add(ForecastDay.fromJson(day));
     }
     return Forecast(forecastDay: forecastDayNew);
