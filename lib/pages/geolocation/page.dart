@@ -90,7 +90,6 @@ class _CitySearchPageState extends State<CitySearchPage> {
                 onTap: () async {
                   var storage = const FlutterSecureStorage();
                   await storage.write(key: "city", value: city.name);
-                  await storage.write(key: "cityType", value: "choosed");
                   FocusManager.instance.primaryFocus?.unfocus();
                   widget.pageController.animateToPage(
                     1,

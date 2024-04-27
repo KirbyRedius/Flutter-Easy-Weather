@@ -29,14 +29,8 @@ class HelloWeatherClient {
     return json.decode(utf8.decode(response.bodyBytes));
   }
 
-  Future<dynamic> getRealTimeWeather(String city) async {
-    Map<String, dynamic> params = {"q": city};
-    var data = await request("current.json", params);
-    return Weather.fromJson(data);
-  }
-
-  Future<dynamic> getForecast(String city, int days) async {
-    Map<String, dynamic> params = {"q": city, "days": days.toString()};
+  Future<dynamic> getForecast(String location, int days) async {
+    Map<String, dynamic> params = {"q": location, "days": days.toString()};
 
     var data = await request("forecast.json", params);
     List test = [];

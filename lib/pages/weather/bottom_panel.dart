@@ -3,8 +3,8 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:easyweather/globals.dart' as globals;
 
 class WeatherBottomPanel extends StatefulWidget {
-  final String city;
-  const WeatherBottomPanel({super.key, required this.city});
+  final String location;
+  const WeatherBottomPanel({super.key, required this.location});
 
   @override
   State<WeatherBottomPanel> createState() => _WeatherBottomPanelState();
@@ -27,7 +27,7 @@ class _WeatherBottomPanelState extends State<WeatherBottomPanel> {
                 width: 2.w,
               ),
               Text(
-                widget.city,
+                widget.location,
                 style: TextStyle(
                   color: globals.appColors[globals.turnDarkTheme].textColor,
                   fontSize: 20.dp,

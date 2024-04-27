@@ -5,7 +5,9 @@ import 'package:easyweather/pages/weather/bottom_panel.dart';
 import 'package:easyweather/pages/weather/weather_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:easyweather/globals.dart' as globals;
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -20,6 +22,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   var storage = FlutterSecureStorage();
+  String? locationType;
 
   Future<Position?> _determinePosition() async {
     bool serviceEnabled;
@@ -63,13 +66,14 @@ class _WeatherPageState extends State<WeatherPage> {
     if (pos != null) {
       String posString = "${pos.latitude},${pos.longitude}";
       await storage.write(key: "position", value: posString);
+      locationType = "position";
       return posString;
     }
 
     IpApiClient ipApiClient = IpApiClient();
     IpData ipData = await ipApiClient.getMyIpInfo();
     await storage.write(key: "city", value: ipData.cityName);
-    await storage.write(key: "cityType", value: "auto");
+    locationType = "city";
     return ipData.cityName;
   }
 
@@ -83,15 +87,28 @@ class _WeatherPageState extends State<WeatherPage> {
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+            child: Text(
+              'Произошла ошибка\n👾 👾 👾',
+              style: TextStyle(
+                color: globals.appColors[globals.turnDarkTheme].textColor,
+                fontSize: 25.dp,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          );
         } else {
-          String city = snapshot.data ?? "";
+          String location = snapshot.data ?? "";
+          String cityName = location;
+          if (locationType == "position") {
+            cityName = "Your geolocation";
+          }
           return Column(
             children: [
-              WeatherBottomPanel(city: city),
+              WeatherBottomPanel(location: cityName),
               Expanded(
                 child: WeatherShow(
-                  city: city,
+                  location: location,
                 ),
               ),
             ],

@@ -8,8 +8,8 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:easyweather/globals.dart' as globals;
 
 class WeatherShow extends StatefulWidget {
-  final String city;
-  const WeatherShow({super.key, required this.city});
+  final String location;
+  const WeatherShow({super.key, required this.location});
 
   @override
   State<WeatherShow> createState() => _WeatherShowState();
@@ -22,9 +22,7 @@ class _WeatherShowState extends State<WeatherShow> {
     if (weather == null || force) {
       HelloWeatherClient weatherClient = HelloWeatherClient();
       WeatherForecast _weather =
-          await weatherClient.getForecast(widget.city, 7);
-      print(_weather.forecast.forecastDay);
-      print('lolккк');
+          await weatherClient.getForecast(widget.location, 7);
       setState(() {
         weather = _weather;
       });
@@ -45,7 +43,16 @@ class _WeatherShowState extends State<WeatherShow> {
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+            child: Text(
+              'Произошла ошибка при загрузке погоды\n👾 👾 👾',
+              style: TextStyle(
+                color: globals.appColors[globals.turnDarkTheme].textColor,
+                fontSize: 25.dp,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          );
         } else {
           return RefreshIndicator(
             onRefresh: userAskUpdateWeather,
