@@ -186,7 +186,6 @@ class Hour {
   final double visMiles;
   final double gustMph;
   final double gustKph;
-  final double uv;
   final Condition condition;
 
   Hour(
@@ -222,7 +221,6 @@ class Hour {
       required this.visMiles,
       required this.gustMph,
       required this.gustKph,
-      required this.uv,
       required this.condition});
 
   factory Hour.fromJson(Map<String, dynamic> json) {
@@ -259,7 +257,6 @@ class Hour {
         visMiles: json['vis_miles'],
         gustMph: json['gust_mph'],
         gustKph: json['gust_kph'],
-        uv: json['uv'],
         condition: Condition.fromJson(json["condition"]));
   }
 }
